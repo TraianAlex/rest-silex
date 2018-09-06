@@ -3,10 +3,16 @@
 namespace KnpU\CodeBattle;
 
 use Doctrine\Common\Annotations\AnnotationReader;
+use KnpU\CodeBattle\Api\ApiProblem;
+use KnpU\CodeBattle\Api\ApiProblemException;
+use KnpU\CodeBattle\Battle\BattleManager;
 use KnpU\CodeBattle\Battle\PowerManager;
+use KnpU\CodeBattle\DataFixtures\FixturesManager;
 use KnpU\CodeBattle\Repository\BattleRepository;
+use KnpU\CodeBattle\Repository\ProgrammerRepository;
 use KnpU\CodeBattle\Repository\ProjectRepository;
 use KnpU\CodeBattle\Repository\RepositoryContainer;
+use KnpU\CodeBattle\Repository\UserRepository;
 use KnpU\CodeBattle\Security\Authentication\ApiEntryPoint;
 use KnpU\CodeBattle\Security\Authentication\ApiTokenListener;
 use KnpU\CodeBattle\Security\Authentication\ApiTokenProvider;
@@ -14,26 +20,23 @@ use KnpU\CodeBattle\Security\Token\ApiTokenRepository;
 use KnpU\CodeBattle\Twig\BattleExtension;
 use KnpU\CodeBattle\Validator\ApiValidator;
 use Silex\Application as SilexApplication;
-use Silex\Provider\SessionServiceProvider;
-use Silex\Provider\UrlGeneratorServiceProvider;
-use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\MonologServiceProvider;
-use Silex\Provider\TranslationServiceProvider;
-use Symfony\Component\Translation\Loader\YamlFileLoader;
-use Symfony\Component\Finder\Finder;
-use KnpU\CodeBattle\DataFixtures\FixturesManager;
 use Silex\Provider\SecurityServiceProvider;
-use KnpU\CodeBattle\Repository\UserRepository;
-use KnpU\CodeBattle\Repository\ProgrammerRepository;
-use KnpU\CodeBattle\Battle\BattleManager;
+use Silex\Provider\SessionServiceProvider;
+use Silex\Provider\TranslationServiceProvider;
+use Silex\Provider\TwigServiceProvider;
+use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Validator\Mapping\ClassMetadataFactory;
 use Symfony\Component\Validator\Mapping\Loader\AnnotationLoader;
 
 class Application extends SilexApplication
 {
-    public function __construct(array $values = array())
+    public function __construct(array $values = [])
     {
         parent::__construct($values);
 
@@ -86,10 +89,10 @@ class Application extends SilexApplication
         $this->register(new UrlGeneratorServiceProvider());
 
         // Twig
-        $this->register(new TwigServiceProvider(), array(
+        $this->register(new TwigServiceProvider(), [
             'twig.path' => $this['root_dir'].'/views',
-        ));
-        $app['twig'] = $this->share($this->extend('twig', function(\Twig_Environment $twig, $app) {
+        ]);
+        $app['twig'] = $this->share($this->extend('twig', function (\Twig_Environment $twig, $app) {
             $twig->addExtension($app['twig.battle_extension']);
 
             return $twig;
@@ -99,32 +102,32 @@ class Application extends SilexApplication
         $this->register(new SessionServiceProvider());
 
         // Doctrine DBAL
-        $this->register(new DoctrineServiceProvider(), array(
-            'db.options' => array(
+        $this->register(new DoctrineServiceProvider(), [
+            'db.options' => [
                 'driver'   => 'pdo_sqlite',
                 'path'     => $this['sqlite_path']
-            ),
-        ));
+            ],
+        ]);
 
         // Monolog
-        $this->register(new MonologServiceProvider(), array(
+        $this->register(new MonologServiceProvider(), [
             'monolog.logfile' => $this['root_dir'].'/logs/development.log',
-        ));
+        ]);
 
         // Validation
         $this->register(new ValidatorServiceProvider());
         // configure validation to load from a YAML file
-        $this['validator.mapping.class_metadata_factory'] = $this->share(function() {
+        $this['validator.mapping.class_metadata_factory'] = $this->share(function () {
             return new ClassMetadataFactory(
                 new AnnotationLoader($this['annotation_reader'])
             );
         });
 
         // Translation
-        $this->register(new TranslationServiceProvider(), array(
-            'locale_fallbacks' => array('en'),
-        ));
-        $this['translator'] = $this->share($this->extend('translator', function($translator) {
+        $this->register(new TranslationServiceProvider(), [
+            'locale_fallbacks' => ['en'],
+        ]);
+        $this['translator'] = $this->share($this->extend('translator', function ($translator) {
             /** @var \Symfony\Component\Translation\Translator $translator */
             $translator->addLoader('yaml', new YamlFileLoader());
 
@@ -144,41 +147,41 @@ class Application extends SilexApplication
     {
         $app = $this;
 
-        $this['repository.user'] = $this->share(function() use ($app) {
+        $this['repository.user'] = $this->share(function () use ($app) {
             $repo = new UserRepository($app['db'], $app['repository_container']);
             $repo->setEncoderFactory($app['security.encoder_factory']);
 
             return $repo;
         });
-        $this['repository.programmer'] = $this->share(function() use ($app) {
+        $this['repository.programmer'] = $this->share(function () use ($app) {
             return new ProgrammerRepository($app['db'], $app['repository_container']);
         });
-        $this['repository.project'] = $this->share(function() use ($app) {
+        $this['repository.project'] = $this->share(function () use ($app) {
             return new ProjectRepository($app['db'], $app['repository_container']);
         });
-        $this['repository.battle'] = $this->share(function() use ($app) {
+        $this['repository.battle'] = $this->share(function () use ($app) {
             return new BattleRepository($app['db'], $app['repository_container']);
         });
-        $this['repository.api_token'] = $this->share(function() use ($app) {
+        $this['repository.api_token'] = $this->share(function () use ($app) {
             return new ApiTokenRepository($app['db'], $app['repository_container']);
         });
-        $this['repository_container'] = $this->share(function() use ($app) {
-            return new RepositoryContainer($app, array(
+        $this['repository_container'] = $this->share(function () use ($app) {
+            return new RepositoryContainer($app, [
                 'user' => 'repository.user',
                 'programmer' => 'repository.programmer',
                 'project' => 'repository.project',
                 'battle' => 'repository.battle',
                 'api_token' => 'repository.api_token',
-            ));
+            ]);
         });
 
-        $this['battle.battle_manager'] = $this->share(function() use ($app) {
+        $this['battle.battle_manager'] = $this->share(function () use ($app) {
             return new BattleManager(
                 $app['repository.battle'],
                 $app['repository.programmer']
             );
         });
-        $this['battle.power_manager'] = $this->share(function() use ($app) {
+        $this['battle.power_manager'] = $this->share(function () use ($app) {
             return new PowerManager(
                 $app['repository.programmer']
             );
@@ -188,7 +191,7 @@ class Application extends SilexApplication
             return new FixturesManager($app);
         });
 
-        $this['twig.battle_extension'] = $this->share(function() use ($app) {
+        $this['twig.battle_extension'] = $this->share(function () use ($app) {
             return new BattleExtension(
                 $app['request_stack'],
                 $app['repository.programmer'],
@@ -196,14 +199,14 @@ class Application extends SilexApplication
             );
         });
 
-        $this['annotation_reader'] = $this->share(function() {
+        $this['annotation_reader'] = $this->share(function () {
             return new AnnotationReader();
         });
         // you could use a cache with annotations if you want
         //$this['annotations.cache'] = new PhpFileCache($this['root_dir'].'/cache');
         //$this['annotation_reader'] = new CachedReader($this['annotations_reader'], $this['annotations.cache'], $this['debug']);
 
-        $this['api.validator'] = $this->share(function() use ($app) {
+        $this['api.validator'] = $this->share(function () use ($app) {
             return new ApiValidator($app['validator']);
         });
     }
@@ -212,9 +215,9 @@ class Application extends SilexApplication
     {
         $app = $this;
 
-        $this->register(new SecurityServiceProvider(), array(
-            'security.firewalls' => array(
-                'api' => array(
+        $this->register(new SecurityServiceProvider(), [
+            'security.firewalls' => [
+                'api' => [
                     'pattern' => '^/api',
                     'users' => $this->share(function () use ($app) {
                         return $app['repository.user'];
@@ -222,8 +225,8 @@ class Application extends SilexApplication
                     'stateless' => true,
                     'anonymous' => true,
                     'api_token' => true,
-                ),
-                'main' => array(
+                ],
+                'main' => [
                     'pattern' => '^/',
                     'form' => true,
                     'users' => $this->share(function () use ($app) {
@@ -231,19 +234,19 @@ class Application extends SilexApplication
                     }),
                     'anonymous' => true,
                     'logout' => true,
-                ),
-            )
-        ));
+                ],
+            ]
+        ]);
 
         // require login for application management
-        $this['security.access_rules'] = array(
+        $this['security.access_rules'] = [
             // placeholder access control for now
-            array('^/register', 'IS_AUTHENTICATED_ANONYMOUSLY'),
-            array('^/login', 'IS_AUTHENTICATED_ANONYMOUSLY'),
+            ['^/register', 'IS_AUTHENTICATED_ANONYMOUSLY'],
+            ['^/login', 'IS_AUTHENTICATED_ANONYMOUSLY'],
             // allow anonymous API - if auth is needed, it's handled in the controller
-            array('^/api', 'IS_AUTHENTICATED_ANONYMOUSLY'),
-            array('^/', 'IS_AUTHENTICATED_FULLY'),
-        );
+            ['^/api', 'IS_AUTHENTICATED_ANONYMOUSLY'],
+            ['^/', 'IS_AUTHENTICATED_FULLY'],
+        ];
 
         // setup our custom API token authentication
         $app['security.authentication_listener.factory.api_token'] = $app->protect(function ($name, $options) use ($app) {
@@ -260,11 +263,11 @@ class Application extends SilexApplication
             });
 
             // the class that decides what should happen if no authentication credentials are passed
-            $this['security.entry_point.'.$name.'.api_token'] = $app->share(function() use ($app) {
+            $this['security.entry_point.'.$name.'.api_token'] = $app->share(function () use ($app) {
                 return new ApiEntryPoint($app['translator']);
             });
 
-            return array(
+            return [
                 // the authentication provider id
                 'security.authentication_provider.'.$name.'.api_token',
                 // the authentication listener id
@@ -273,11 +276,11 @@ class Application extends SilexApplication
                 'security.entry_point.'.$name.'.api_token',
                 // the position of the listener in the stack
                 'pre_auth'
-            );
+            ];
         });
 
         // expose a fake "user" service
-        $this['user'] = $this->share(function() use ($app) {
+        $this['user'] = $this->share(function () use ($app) {
             $user = $app['security']->getToken()->getUser();
 
             return is_object($user) ? $user : null;
@@ -286,6 +289,46 @@ class Application extends SilexApplication
 
     private function configureListeners()
     {
-        // todo
+        $app = $this;
+
+        $this->error(function (\Exception $e, $statusCode) use ($app) {
+            // only act on /api URLs
+            if (strpos($app['request']->getPathInfo(), '/api') !== 0) {
+                return;
+            }
+            // allow 500 errors to be visible to us in debug mode
+            if ($app['debug'] && $statusCode == 500) {
+                return;
+            }
+            // only do something special if we have an ApiProblemException!
+            // if (!$e instanceof ApiProblemException) {
+            //     return;
+            // }
+            if ($e instanceof ApiProblemException) {
+                $apiProblem = $e->getApiProblem();
+            } else {
+                $apiProblem = new ApiProblem($statusCode);
+                if ($e instanceof HttpException) {
+                    $apiProblem->set('detail', $e->getMessage());
+                }
+            }
+
+            // $response = new JsonResponse(
+            //     $e->getApiProblem()->toArray(),
+            //     $e->getApiProblem()->getStatusCode()
+            // );
+            $data = $apiProblem->toArray();
+            if ($data['type'] != 'about:blank') {
+                $data['type'] = 'http://localhost:8000/api/docs/errors#'.$data['type'];
+            }
+            $response = new JsonResponse(
+                //$apiProblem->toArray(),
+                $data,
+                $statusCode
+            );
+            $response->headers->set('Content-Type', 'application/problem+json');
+
+            return $response;
+        });
     }
-} 
+}

@@ -29,7 +29,8 @@ class ProgrammerController extends BaseController
         $programmer = new Programmer($data['nickname'], $data['avatarNumber']);
         $this->handleRequest($request, $programmer);
         if ($errors = $this->validate($programmer)) {
-            return $this->handleValidationResponse($errors);
+            //return $this->handleValidationResponse($errors);
+            $this->throwApiProblemValidationException($errors);
         }
         $this->save($programmer);
 
@@ -50,6 +51,8 @@ class ProgrammerController extends BaseController
 
     public function showAction($nickname)
     {
+        //throw new \Exception('I made a mistake!');
+
         $programmer = $this->getProgrammerRepository()->findOneByNickname($nickname);
         if (!$programmer) {
             $this->throw404('Crap! This programmer has deserted! We\'ll send a search party');
@@ -92,7 +95,8 @@ class ProgrammerController extends BaseController
 
         $this->handleRequest($request, $programmer);
         if ($errors = $this->validate($programmer)) {
-            return $this->handleValidationResponse($errors);
+            //return $this->handleValidationResponse($errors);
+            $this->throwApiProblemValidationException($errors);
         }
         $this->save($programmer);
 
@@ -113,24 +117,22 @@ class ProgrammerController extends BaseController
         return new Response(null, 204);
     }
 
-    private function handleValidationResponse(array $errors)
+    private function hthrowApiProblemValidationException(array $errors)
     {
         // $data = [
         //     'type' => 'validation_error',
         //     'title' => 'There was a validation error',
         //     'errors' => $errors
         // ];
-        $apiProblem = new ApiProblem(
-            400,
-            ApiProblem::TYPE_VALIDATION_ERROR
-        );
+        $apiProblem = new ApiProblem(400, ApiProblem::TYPE_VALIDATION_ERROR);
         $apiProblem->set('errors', $errors);
 
         //$response = new JsonResponse($data, 400);
-        $response = new JsonResponse($apiProblem->toArray(), $apiProblem->getStatusCode());
-        $response->headers->set('Content-Type', 'application/problem+json');
+        // $response = new JsonResponse($apiProblem->toArray(), $apiProblem->getStatusCode());
+        // $response->headers->set('Content-Type', 'application/problem+json');
 
-        return $response;
+        // return $response;
+        throw new ApiProblemException($apiProblem);
     }
 
     private function handleRequest(Request $request, Programmer $programmer)
@@ -141,6 +143,7 @@ class ProgrammerController extends BaseController
             //throw new \Exception(sprintf('Invalid JSON: '.$request->getContent()));
             //throw new HttpException(400, sprintf('Invalid JSON: '.$request->getContent()));
             $problem = new ApiProblem(400, ApiProblem::TYPE_INVALID_REQUEST_BODY_FORMAT);
+            throw new ApiProblemException($problem);
         }
         // $programmer->nickname = $data['nickname'];
         // $programmer->avatarNumber = $data['avatarNumber'];
