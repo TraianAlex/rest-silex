@@ -1,14 +1,10 @@
 <?php
 
-use Behat\Behat\Context\ClosuredContextInterface,
-    Behat\Behat\Context\TranslatedContextInterface,
-    Behat\Behat\Context\BehatContext,
-    Behat\Behat\Exception\PendingException;
-use Behat\Gherkin\Node\PyStringNode,
-    Behat\Gherkin\Node\TableNode;
+use Behat\Behat\Context\BehatContext;
+use Behat\Gherkin\Node\PyStringNode;
 
-use Guzzle\Service\Client,
-    Guzzle\Http\Exception\BadResponseException;
+use Guzzle\Service\Client;
+use Guzzle\Http\Exception\BadResponseException;
 use Behat\Behat\Event\BaseScenarioEvent;
 use Behat\Behat\Event\StepEvent;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -59,7 +55,7 @@ class ApiFeatureContext extends BehatContext
      */
     protected $authPassword;
 
-    protected $headers = array();
+    protected $headers = [];
 
     /**
      * The Guzzle HTTP Response.
@@ -113,13 +109,21 @@ class ApiFeatureContext extends BehatContext
     {
         $this->useContext('project', new ProjectContext());
 
-        $config = isset($parameters['guzzle']) && is_array($parameters['guzzle']) ? $parameters['guzzle'] : array();
-        $config['request.options'] = isset($config['request.options']) ? $config['request.options'] : array();
+        $config = isset($parameters['guzzle']) && is_array($parameters['guzzle']) ? $parameters['guzzle'] : [];
+        $config['request.options'] = isset($config['request.options']) ? $config['request.options'] : [];
 
         // $config['request.options']['Accept'] = 'application/vnd.com.example.api-v1+json';
         // $config['request.options']['Authorization'] = "Bearer {$parameters['access_token']}";
 
         $this->client = new Client($parameters['base_url'], $config);
+    }
+
+    /**
+     * @BeforeScenario
+     */
+    public function clearData()
+    {
+        $this->getProjectHelper()->reloadDatabase();
     }
 
     /**
@@ -174,7 +178,6 @@ class ApiFeatureContext extends BehatContext
 
             $this->response = $this->lastRequest->send();
         } catch (BadResponseException $e) {
-
             $response = $e->getResponse();
 
             // Sometimes the request will fail, at which point we have
@@ -363,7 +366,7 @@ class ApiFeatureContext extends BehatContext
         $scopePayload = $this->arrayGet($payload, $property);
 
         assertTrue(
-            is_array($scopePayload) and $scopePayload === array(),
+            is_array($scopePayload) and $scopePayload === [],
             "Asserting the [$property] property in current scope [{$this->scope}] is an empty array: ".json_encode($payload)
         );
     }
@@ -449,7 +452,7 @@ class ApiFeatureContext extends BehatContext
         $payload = $this->getScopePayload();
         $actualValue = $this->arrayGet($payload, $property);
 
-        if (! in_array($expectedValue, array('true', 'false'))) {
+        if (! in_array($expectedValue, ['true', 'false'])) {
             throw new \InvalidArgumentException("Testing for booleans must be represented by [true] or [false].");
         }
 
@@ -588,7 +591,7 @@ class ApiFeatureContext extends BehatContext
 
                         // finds the h1 and h2 tags and prints them only
                         $crawler = new Crawler($body);
-                        foreach ($crawler->filter('h1, h2')->extract(array('_text')) as $header) {
+                        foreach ($crawler->filter('h1, h2')->extract(['_text']) as $header) {
                             $this->printDebug(sprintf('        '.$header));
                         }
                     } else {
@@ -696,7 +699,6 @@ class ApiFeatureContext extends BehatContext
         }
 
         foreach (explode('.', $key) as $segment) {
-
             if (is_object($array)) {
                 if (!property_exists($array, $segment)) {
                     if ($throwOnMissing) {
@@ -707,7 +709,6 @@ class ApiFeatureContext extends BehatContext
                     return $checkForPresenceOnly ? false : null;
                 }
                 $array = $array->{$segment};
-
             } elseif (is_array($array)) {
                 if (! array_key_exists($segment, $array)) {
                     if ($throwOnMissing) {
@@ -773,7 +774,7 @@ class ApiFeatureContext extends BehatContext
      */
     private function getOutput()
     {
-        if ($this->output === null)  {
+        if ($this->output === null) {
             $this->output = new ConsoleOutput();
         }
 
@@ -795,12 +796,12 @@ class ApiFeatureContext extends BehatContext
     {
         $language = new ExpressionLanguage();
 
-        $variables = array(
+        $variables = [
             'users' => new EntityLookup($this->getProjectHelper()->getUserRepository(), 'username'),
             'projects' => new EntityLookup($this->getProjectHelper()->getProjectRepository(), 'name'),
             'programmers' => new EntityLookup($this->getProjectHelper()->getProgrammerRepository(), 'nickname'),
             'battles' => new EntityLookup($this->getProjectHelper()->getProgrammerRepository(), 'id'),
-        );
+        ];
 
         while (false !== $startPos = strpos($payload, '%')) {
             $endPos = strpos($payload, '%', $startPos+1);

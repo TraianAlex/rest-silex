@@ -2,23 +2,21 @@
 
 namespace KnpU\CodeBattle\Controller;
 
-use Silex\Application;
 use Silex\ControllerCollection;
 use KnpU\CodeBattle\Model\Programmer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-
 class ProgrammerController extends BaseController
 {
     protected function addRoutes(ControllerCollection $controllers)
     {
-        $controllers->get('/programmers/new', array($this, 'newAction'))->bind('programmer_new');
-        $controllers->post('/programmers/new', array($this, 'handleNewAction'))->bind('programmer_new_handle');
-        $controllers->get('/programmers/choose', array($this, 'chooseAction'))->bind('programmer_choose');
-        $controllers->get('/programmers/{nickname}', array($this, 'showAction'))->bind('programmer_show');
-        $controllers->post('/programmers/{nickname}/power/up', array($this, 'powerUpAction'))->bind('programmer_powerup');
+        $controllers->get('/programmers/new', [$this, 'newAction'])->bind('programmer_new');
+        $controllers->post('/programmers/new', [$this, 'handleNewAction'])->bind('programmer_new_handle');
+        $controllers->get('/programmers/choose', [$this, 'chooseAction'])->bind('programmer_choose');
+        $controllers->get('/programmers/{nickname}', [$this, 'showAction'])->bind('programmer_show');
+        $controllers->post('/programmers/{nickname}/power/up', [$this, 'powerUpAction'])->bind('programmer_powerup');
     }
 
 
@@ -29,7 +27,7 @@ class ProgrammerController extends BaseController
     {
         $programmer = new Programmer();
 
-        return $this->render('programmer/new.twig', array('programmer' => $programmer));
+        return $this->render('programmer/new.twig', ['programmer' => $programmer]);
     }
 
     /**
@@ -39,7 +37,7 @@ class ProgrammerController extends BaseController
     {
         $programmer = new Programmer();
 
-        $errors = array();
+        $errors = [];
         $data = $this->getAndValidateData($request, $errors);
         $programmer->nickname = $data['nickname'];
         $programmer->avatarNumber = $data['avatarNumber'];
@@ -47,13 +45,13 @@ class ProgrammerController extends BaseController
         $programmer->userId = $this->getLoggedInUser()->id;
 
         if ($errors) {
-            return $this->render('programmer/new.twig', array('programmer' => $programmer, 'errors' => $errors));
+            return $this->render('programmer/new.twig', ['programmer' => $programmer, 'errors' => $errors]);
         }
 
         $this->getProgrammerRepository()->save($programmer);
 
         $this->setFlash(sprintf('%s has been compiled and is ready for battle!', $programmer->nickname));
-        return $this->redirect($this->generateUrl('programmer_show', array('nickname' => $programmer->nickname)));
+        return $this->redirect($this->generateUrl('programmer_show', ['nickname' => $programmer->nickname]));
     }
 
     public function showAction($nickname)
@@ -65,17 +63,17 @@ class ProgrammerController extends BaseController
 
         $projects = $this->getProjectRepository()->findRandom(3);
 
-        return $this->render('programmer/show.twig', array(
+        return $this->render('programmer/show.twig', [
             'programmer' => $programmer,
             'projects' => $projects,
-        ));
+        ]);
     }
 
     public function chooseAction()
     {
         $programmers = $this->getProgrammerRepository()->findAllForUser($this->getLoggedInUser());
 
-        return $this->render('programmer/choose.twig', array('programmers' => $programmers));
+        return $this->render('programmer/choose.twig', ['programmers' => $programmers]);
     }
 
     public function powerUpAction($nickname)
@@ -93,7 +91,7 @@ class ProgrammerController extends BaseController
             $powerupDetails['powerChange'] > 0
         );
 
-        return $this->redirect($this->generateUrl('programmer_show', array('nickname' => $programmer->nickname)));
+        return $this->redirect($this->generateUrl('programmer_show', ['nickname' => $programmer->nickname]));
     }
 
     /**
@@ -108,7 +106,7 @@ class ProgrammerController extends BaseController
         $avatarNumber = $request->request->get('avatarNumber');
         $tagLine = $request->request->get('tagLine');
 
-        $errors = array();
+        $errors = [];
         if (!$nickname) {
             $errors[] = 'Give your programmer a nickname!';
         }
@@ -121,10 +119,10 @@ class ProgrammerController extends BaseController
             $errors[] = 'Looks like that programmer already exists - try a different nickname';
         }
 
-        return array(
+        return [
             'nickname' => $nickname,
             'avatarNumber' => $avatarNumber,
             'tagLine' => $tagLine,
-        );
+        ];
     }
 }

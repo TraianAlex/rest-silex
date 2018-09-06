@@ -2,7 +2,6 @@
 
 namespace KnpU\CodeBattle\Model;
 
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class Programmer
@@ -11,6 +10,9 @@ class Programmer
     /* All public properties are persisted */
     public $id;
 
+    /**
+     * @Assert\NotBlank(message="Please enter a clever nickname")
+     */
     public $nickname;
 
     /**
@@ -31,6 +33,4 @@ class Programmer
         $this->nickname = $nickname;
         $this->avatarNumber = $avatarNumber;
     }
-
-
 }
