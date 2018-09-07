@@ -2,20 +2,22 @@
 
 namespace KnpU\CodeBattle\Controller;
 
+use JMS\Serializer\SerializationContext;
+use KnpU\CodeBattle\Application;
 use KnpU\CodeBattle\Model\Programmer;
 use KnpU\CodeBattle\Model\User;
+use KnpU\CodeBattle\Repository\ProgrammerRepository;
+use KnpU\CodeBattle\Repository\ProjectRepository;
 use KnpU\CodeBattle\Repository\UserRepository;
-use KnpU\CodeBattle\Application;
+use KnpU\CodeBattle\Security\Token\ApiTokenRepository;
 use Silex\Application as SilexApplication;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\HttpFoundation\Request;
-use KnpU\CodeBattle\Repository\ProgrammerRepository;
-use KnpU\CodeBattle\Repository\ProjectRepository;
-use KnpU\CodeBattle\Security\Token\ApiTokenRepository;
 
 /**
  * Base controller class to hide Silex-related implementation details
@@ -50,7 +52,7 @@ abstract class BaseController implements ControllerProviderInterface
      * @param  array  $variables
      * @return string
      */
-    public function render($template, array $variables = array())
+    public function render($template, array $variables = [])
     {
         return $this->container['twig']->render($template, $variables);
     }
@@ -83,7 +85,7 @@ abstract class BaseController implements ControllerProviderInterface
      * @param  bool   $absolute
      * @return string A URL!
      */
-    public function generateUrl($routeName, array $parameters = array(), $absolute = false)
+    public function generateUrl($routeName, array $parameters = [], $absolute = false)
     {
         return $this->container['url_generator']->generate(
             $routeName,
@@ -228,4 +230,20 @@ abstract class BaseController implements ControllerProviderInterface
         return $this->container['repository.api_token'];
     }
 
+    protected function serialize($data, $format = 'json')
+    {
+        $context = new SerializationContext();
+        $context->setSerializeNull(true);
+
+        return $this->container['serializer']->serialize($data, $format, $context);
+    }
+
+    protected function createApiResponse($data, $statusCode = 200)
+    {
+        $json = $this->serialize($data);
+
+        return new Response($json, $statusCode, [
+            'Content-Type' => 'application/json'
+        ]);
+    }
 }

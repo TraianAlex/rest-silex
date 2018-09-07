@@ -34,11 +34,14 @@ class ProgrammerController extends BaseController
         }
         $this->save($programmer);
 
-        $data = $this->serializeProgrammer($programmer);
+        //$data = $this->serializeProgrammer($programmer);
+        //$json = $this->serialize($programmer);
         //$response = new Response('It worked. Believe me - I\'m an API', 201);
         //$response = new Response(json_encode($data), 201);
-        $response = new JsonResponse($data, 201);
+        //$response = new JsonResponse($json, 201);
+        //$response = new Response($json, 201);
         //$response->headers->set('Location', '/some/programmer/url');
+        $response = $this->createApiResponse($programmer, 201);
         $programmerUrl = $this->generateUrl(
             'api_programmers_show',
             ['nickname' => $programmer->nickname]
@@ -63,9 +66,11 @@ class ProgrammerController extends BaseController
         //     'powerLevel' => $programmer->powerLevel,
         //     'tagLine' => $programmer->tagLine,
         // ];
-        $data = $this->serializeProgrammer($programmer);
-
-        $response = new Response(json_encode($data), 200);
+        //$data = $this->serializeProgrammer($programmer);
+        //$json = $this->serialize($programmer);
+        //$response = new Response(json_encode($data), 200);
+        //$response = new Response($json, 200);
+        $response = $this->createApiResponse($programmer, 200);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
@@ -74,12 +79,15 @@ class ProgrammerController extends BaseController
     public function listAction()
     {
         $programmers = $this->getProgrammerRepository()->findAll();
-        $data = ['programmers' => []];
-        foreach ($programmers as $programmer) {
-            $data['programmers'][] = $this->serializeProgrammer($programmer);
-        }
-
-        $response = new Response(json_encode($data), 200);
+        // $data = ['programmers' => []];
+        // foreach ($programmers as $programmer) {
+        //     $data['programmers'][] = $this->serializeProgrammer($programmer);
+        // }
+        $data = ['programmers' => $programmers];
+        //$json = $this->serialize($data);
+        // $response = new Response(json_encode($data), 200);
+        //$response = new Response($json, 200);
+        $response = $this->createApiResponse($data, 200);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
@@ -100,8 +108,11 @@ class ProgrammerController extends BaseController
         }
         $this->save($programmer);
 
-        $data = $this->serializeProgrammer($programmer);
-        $response = new JsonResponse($data, 200);
+        //$data = $this->serializeProgrammer($programmer);
+        //$json = $this->serialize($programmer);
+        //$response = new JsonResponse($json, 200);
+        //$response = new Response($json, 200);
+        $response = $this->createApiResponse($programmer, 200);
 
         return $response;
     }
@@ -163,13 +174,18 @@ class ProgrammerController extends BaseController
         $programmer->userId = $this->findUserByUsername('weaverryan')->id;
     }
 
-    private function serializeProgrammer(Programmer $programmer)
-    {
-        return [
-            'nickname' => $programmer->nickname,
-            'avatarNumber' => $programmer->avatarNumber,
-            'powerLevel' => $programmer->powerLevel,
-            'tagLine' => $programmer->tagLine,
-        ];
-    }
+    // private function serializeProgrammer(Programmer $programmer)
+    // {
+    //     return [
+    //         'nickname' => $programmer->nickname,
+    //         'avatarNumber' => $programmer->avatarNumber,
+    //         'powerLevel' => $programmer->powerLevel,
+    //         'tagLine' => $programmer->tagLine,
+    //     ];
+    // }
+
+    // protected function serialize($data)
+    // {
+    //     return $this->container['serializer']->serialize($data, 'json');
+    // }
 }
