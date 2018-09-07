@@ -16,7 +16,8 @@
         "behat/behat": "~2.5",
         "behat/mink-extension": "~1.2.0",
         "phpunit/phpunit": "~3.7.0",
-        "guzzle/guzzle": "~3.7"
+        "guzzle/guzzle": "~3.7",
+        "test/test": "~1.0"
     },
     "autoload" : {
         "psr-0": {
