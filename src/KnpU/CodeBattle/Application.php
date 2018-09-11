@@ -6,6 +6,7 @@ use Doctrine\Common\Annotations\AnnotationReader;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use KnpU\CodeBattle\Api\ApiProblem;
 use KnpU\CodeBattle\Api\ApiProblemException;
+use KnpU\CodeBattle\Api\ApiProblemResponseFactory;
 use KnpU\CodeBattle\Battle\BattleManager;
 use KnpU\CodeBattle\Battle\PowerManager;
 use KnpU\CodeBattle\DataFixtures\FixturesManager;
@@ -218,6 +219,10 @@ class Application extends SilexApplication
                 ->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy())
                 ->build();
         });
+
+        $this['api.response_factory'] = $this->share(function() {
+            return new ApiProblemResponseFactory();
+        });
     }
 
     private function configureSecurity()
@@ -273,7 +278,8 @@ class Application extends SilexApplication
 
             // the class that decides what should happen if no authentication credentials are passed
             $this['security.entry_point.'.$name.'.api_token'] = $app->share(function () use ($app) {
-                return new ApiEntryPoint($app['translator']);
+                //return new ApiEntryPoint($app['translator']);
+                return new ApiEntryPoint($app['translator'], $app['api.response_factory']);
             });
 
             return [
@@ -317,7 +323,7 @@ class Application extends SilexApplication
                 $apiProblem = $e->getApiProblem();
             } else {
                 $apiProblem = new ApiProblem($statusCode);
-                if ($e instanceof HttpException) {
+                if ($e instanceof \HttpException) {
                     $apiProblem->set('detail', $e->getMessage());
                 }
             }
@@ -337,7 +343,9 @@ class Application extends SilexApplication
             );
             $response->headers->set('Content-Type', 'application/problem+json');
 
-            return $response;
+            $factory = $app['api.response_factory'];
+            //return $response;
+            return $factory->createResponse($apiProblem);
         });
     }
 }

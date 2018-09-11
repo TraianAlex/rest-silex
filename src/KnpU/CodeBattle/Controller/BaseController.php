@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Base controller class to hide Silex-related implementation details
@@ -245,5 +246,21 @@ abstract class BaseController implements ControllerProviderInterface
         return new Response($json, $statusCode, [
             'Content-Type' => 'application/json'
         ]);
+    }
+
+    protected function enforceProgrammerOwnershipSecurity(Programmer $programmer)
+    {
+        $this->enforceUserSecurity();
+
+        if ($this->getLoggedInUser()->id != $programmer->userId) {
+            throw new AccessDeniedException();
+        }
+    }
+
+    protected function enforceUserSecurity()
+    {
+        if (!$this->isUserLoggedIn()) {
+            throw new AccessDeniedException();
+        }
     }
 }

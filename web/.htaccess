@@ -4,5 +4,8 @@
     RewriteEngine On
     #RewriteBase /path/to/app
     RewriteCond %{REQUEST_FILENAME} !-f
+    #RewriteCond %{HTTP:Authorization} .+
+    #RewriteCond %{HTTP:Authorization} ^(.*)
+    #RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
     RewriteRule ^ index.php [L]
 </IfModule>

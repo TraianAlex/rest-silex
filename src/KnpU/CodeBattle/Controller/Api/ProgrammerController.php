@@ -3,12 +3,14 @@
 namespace KnpU\CodeBattle\Controller\Api;
 
 use KnpU\CodeBattle\Api\ApiProblem;
+use KnpU\CodeBattle\Api\ApiProblemException;
 use KnpU\CodeBattle\Controller\BaseController;
 use KnpU\CodeBattle\Model\Programmer;
 use Silex\ControllerCollection;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ProgrammerController extends BaseController
 {
@@ -24,6 +26,8 @@ class ProgrammerController extends BaseController
 
     public function newAction(Request $request)
     {
+        $this->enforceUserSecurity();
+
         $data = json_decode($request->getContent(), true);
 
         $programmer = new Programmer($data['nickname'], $data['avatarNumber']);
@@ -101,6 +105,8 @@ class ProgrammerController extends BaseController
             $this->throw404();
         }
 
+        $this->enforceProgrammerOwnershipSecurity($programmer);
+
         $this->handleRequest($request, $programmer);
         if ($errors = $this->validate($programmer)) {
             //return $this->handleValidationResponse($errors);
@@ -122,13 +128,14 @@ class ProgrammerController extends BaseController
         $programmer = $this->getProgrammerRepository()->findOneByNickname($nickname);
 
         if ($programmer) {
+            $this->enforceProgrammerOwnershipSecurity($programmer);
             $this->delete($programmer);
         }
 
         return new Response(null, 204);
     }
 
-    private function hthrowApiProblemValidationException(array $errors)
+    private function throwApiProblemValidationException(array $errors)
     {
         // $data = [
         //     'type' => 'validation_error',
@@ -171,7 +178,8 @@ class ProgrammerController extends BaseController
             $val = isset($data[$property]) ? $data[$property] : null;
             $programmer->$property = $val;
         }
-        $programmer->userId = $this->findUserByUsername('weaverryan')->id;
+        //$programmer->userId = $this->findUserByUsername('weaverryan')->id;
+        $programmer->userId = $this->getLoggedInUser()->id;
     }
 
     // private function serializeProgrammer(Programmer $programmer)
