@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="711e44dd-79bd-4a5d-a0d6-08a1726efccb" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/KnpU/CodeBattle/Api/ApiProblemResponseFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testing2.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/serializer/metadata/KnpU-CodeBattle-Model-Programmer.cache.php" beforeDir="false" afterPath="$PROJECT_DIR$/cache/serializer/metadata/KnpU-CodeBattle-Model-Programmer.cache.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KnpU/CodeBattle/Api/ApiProblem.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/KnpU/CodeBattle/Api/ApiProblem.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KnpU/CodeBattle/Application.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/KnpU/CodeBattle/Application.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KnpU/CodeBattle/Controller/Api/ProgrammerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/KnpU/CodeBattle/Controller/Api/ProgrammerController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KnpU/CodeBattle/Controller/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/KnpU/CodeBattle/Controller/BaseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KnpU/CodeBattle/Model/Programmer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/KnpU/CodeBattle/Model/Programmer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KnpU/CodeBattle/Security/Authentication/ApiEntryPoint.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/KnpU/CodeBattle/Security/Authentication/ApiEntryPoint.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KnpU/CodeBattle/Security/Authentication/ApiTokenListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/KnpU/CodeBattle/Security/Authentication/ApiTokenListener.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KnpU/CodeBattle/Security/Authentication/ApiTokenProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/KnpU/CodeBattle/Security/Authentication/ApiTokenProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing.php" beforeDir="false" afterPath="$PROJECT_DIR$/testing.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations/en.yml" beforeDir="false" afterPath="$PROJECT_DIR$/translations/en.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/web/.htaccess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,16 +11,16 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="ProgrammerController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Controller/Api/ProgrammerController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3250">
-              <caret line="125" column="43" lean-forward="true" selection-start-line="125" selection-start-column="43" selection-end-line="125" selection-end-column="43" />
+            <state relative-caret-position="3042">
+              <caret line="125" column="43" selection-start-line="125" selection-start-column="43" selection-end-line="125" selection-end-column="43" />
               <folding>
                 <element signature="e#50#85#0#PHP" expanded="true" />
               </folding>
@@ -42,20 +28,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Application.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Application.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Application.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="280" column="56" selection-start-line="280" selection-start-column="56" selection-end-line="280" selection-end-column="56" />
+            <state relative-caret-position="26">
+              <caret line="275" column="41" selection-start-line="275" selection-start-column="41" selection-end-line="275" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApiEntryPoint.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ApiEntryPoint.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Security/Authentication/ApiEntryPoint.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-164">
-              <caret line="25" column="81" selection-start-line="25" selection-start-column="81" selection-end-line="25" selection-end-column="81" />
+            <state relative-caret-position="1144">
+              <caret line="51" column="64" selection-start-line="51" selection-start-column="64" selection-end-line="51" selection-end-column="64" />
               <folding>
                 <element signature="e#59#94#0#PHP" expanded="true" />
               </folding>
@@ -66,8 +52,8 @@
       <file leaf-file-name="ApiProblemResponseFactory.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Api/ApiProblemResponseFactory.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="6" column="31" lean-forward="true" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+            <state relative-caret-position="156">
+              <caret line="6" column="31" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -185,6 +171,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -195,73 +182,12 @@
             <path>
               <item name="rest" type="b2602c69:ProjectViewProjectNode" />
               <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rest" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="KnpU" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rest" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="KnpU" type="462c0819:PsiDirectoryNode" />
-              <item name="CodeBattle" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rest" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="KnpU" type="462c0819:PsiDirectoryNode" />
-              <item name="CodeBattle" type="462c0819:PsiDirectoryNode" />
-              <item name="Api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rest" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="KnpU" type="462c0819:PsiDirectoryNode" />
-              <item name="CodeBattle" type="462c0819:PsiDirectoryNode" />
-              <item name="Controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rest" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="KnpU" type="462c0819:PsiDirectoryNode" />
-              <item name="CodeBattle" type="462c0819:PsiDirectoryNode" />
-              <item name="Controller" type="462c0819:PsiDirectoryNode" />
-              <item name="Api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rest" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="KnpU" type="462c0819:PsiDirectoryNode" />
-              <item name="CodeBattle" type="462c0819:PsiDirectoryNode" />
-              <item name="Security" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rest" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="KnpU" type="462c0819:PsiDirectoryNode" />
-              <item name="CodeBattle" type="462c0819:PsiDirectoryNode" />
-              <item name="Security" type="462c0819:PsiDirectoryNode" />
-              <item name="Authentication" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rest" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
               <item name="translations" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -292,36 +218,38 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1536588909862</updated>
-      <workItem from="1536588911445" duration="11728000" />
+      <workItem from="1536588911445" duration="12579000" />
+      <workItem from="1536718470243" duration="584000" />
+      <workItem from="1537296928155" duration="25000" />
+      <workItem from="1537386919842" duration="3000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11728000" />
+    <option name="totallyTimeSpent" value="13191000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="810" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24964234" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26037195" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,6 +270,108 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Controller/Api/ProgrammerController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3042">
+          <caret line="125" column="43" selection-start-line="125" selection-start-column="43" selection-end-line="125" selection-end-column="43" />
+          <folding>
+            <element signature="e#50#85#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Security/Authentication/ApiEntryPoint.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1144">
+          <caret line="51" column="64" selection-start-line="51" selection-start-column="64" selection-end-line="51" selection-end-column="64" />
+          <folding>
+            <element signature="e#59#94#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Api/ApiProblemResponseFactory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="6" column="31" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Application.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6318">
+          <caret line="275" column="41" selection-start-line="275" selection-start-column="41" selection-end-line="275" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Controller/Api/ProgrammerController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3042">
+          <caret line="125" column="43" selection-start-line="125" selection-start-column="43" selection-end-line="125" selection-end-column="43" />
+          <folding>
+            <element signature="e#50#85#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Security/Authentication/ApiEntryPoint.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1144">
+          <caret line="51" column="64" selection-start-line="51" selection-start-column="64" selection-end-line="51" selection-end-column="64" />
+          <folding>
+            <element signature="e#59#94#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Api/ApiProblemResponseFactory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="6" column="31" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Application.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6318">
+          <caret line="275" column="41" selection-start-line="275" selection-start-column="41" selection-end-line="275" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Controller/Api/ProgrammerController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3042">
+          <caret line="125" column="43" selection-start-line="125" selection-start-column="43" selection-end-line="125" selection-end-column="43" />
+          <folding>
+            <element signature="e#50#85#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Security/Authentication/ApiEntryPoint.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1144">
+          <caret line="51" column="64" selection-start-line="51" selection-start-column="64" selection-end-line="51" selection-end-column="64" />
+          <folding>
+            <element signature="e#59#94#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Api/ApiProblemResponseFactory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="6" column="31" lean-forward="true" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Application.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6318">
+          <caret line="275" column="41" selection-start-line="275" selection-start-column="41" selection-end-line="275" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Security/Token/ApiTokenRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-634">
@@ -424,9 +454,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1555">
           <caret line="148" column="61" lean-forward="true" selection-start-line="148" selection-start-column="61" selection-end-line="148" selection-end-column="61" />
-          <folding>
-            <element signature="e#46#86#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -473,35 +500,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Controller/Api/ProgrammerController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3250">
-          <caret line="125" column="43" lean-forward="true" selection-start-line="125" selection-start-column="43" selection-end-line="125" selection-end-column="43" />
+        <state relative-caret-position="3042">
+          <caret line="125" column="43" selection-start-line="125" selection-start-column="43" selection-end-line="125" selection-end-column="43" />
           <folding>
             <element signature="e#50#85#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Security/Authentication/ApiEntryPoint.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1144">
+          <caret line="51" column="64" selection-start-line="51" selection-start-column="64" selection-end-line="51" selection-end-column="64" />
+          <folding>
+            <element signature="e#59#94#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Api/ApiProblemResponseFactory.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="31" lean-forward="true" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+        <state relative-caret-position="156">
+          <caret line="6" column="31" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Application.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="280" column="56" selection-start-line="280" selection-start-column="56" selection-end-line="280" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/KnpU/CodeBattle/Security/Authentication/ApiEntryPoint.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-164">
-          <caret line="25" column="81" selection-start-line="25" selection-start-column="81" selection-end-line="25" selection-end-column="81" />
-          <folding>
-            <element signature="e#59#94#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="26">
+          <caret line="275" column="41" selection-start-line="275" selection-start-column="41" selection-end-line="275" selection-end-column="41" />
         </state>
       </provider>
     </entry>
